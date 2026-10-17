@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import shutil
 import subprocess
@@ -72,23 +73,35 @@ def missing_assets(path: Path, text: str, roots):
 
 
 def cmd_scan(args) -> int:
+    invalid = [str(p) for raw in args.paths if not (p := Path(raw)).is_file() and not p.is_dir()]
+    if invalid:
+        print(json.dumps({"error": "Input paths must exist as files or directories", "paths": invalid}), file=sys.stderr)
+        return 2
     roots = [Path(p) for p in args.paths if Path(p).is_dir()]
     roots += [r / "public" for r in roots]
     report = []
+    scanned = 0
     for f in iter_files(args.paths):
         if f.name == Path(__file__).name:
             continue
         try:
             text = f.read_text(encoding="utf-8")
-        except (UnicodeDecodeError, OSError):
+        except UnicodeDecodeError:
             continue
+        except OSError as exc:
+            print(json.dumps({"error": str(exc), "file": str(f)}), file=sys.stderr)
+            return 2
+        scanned += 1
         items = scan_text(text)
         if f.suffix.lower() not in {".md", ".txt", ".srt", ".vtt"}:
             items += missing_assets(f, text, roots)
         for it in items:
             it["file"] = str(f)
             report.append(it)
-    print(json.dumps({"findings": report, "count": len(report)}, indent=2))
+    if not scanned:
+        print(json.dumps({"error": "No readable text inputs were scanned"}), file=sys.stderr)
+        return 2
+    print(json.dumps({"findings": report, "count": len(report), "scanned_files": scanned}, indent=2))
     return 1 if report else 0
 
 
@@ -98,13 +111,27 @@ def parse_blackdetect(stderr: str):
 
 
 def cmd_blackframes(args) -> int:
+    if not Path(args.video).is_file():
+        print("Video input must be an existing file", file=sys.stderr)
+        return 2
+    if not math.isfinite(args.min_duration) or args.min_duration <= 0:
+        print("Minimum duration must be finite and greater than zero", file=sys.stderr)
+        return 2
     if not shutil.which("ffmpeg"):
         print("ffmpeg not found", file=sys.stderr)
         return 2
-    proc = subprocess.run(
-        ["ffmpeg", "-hide_banner", "-i", args.video, "-vf",
-         f"blackdetect=d={args.min_duration}:pix_th=0.10", "-an", "-f", "null", "-"],
-        capture_output=True, text=True)
+    try:
+        proc = subprocess.run(
+            ["ffmpeg", "-hide_banner", "-xerror", "-i", args.video, "-map", "0:v:0", "-vf",
+             f"blackdetect=d={args.min_duration}:pix_th=0.10", "-an", "-f", "null", "-"],
+            capture_output=True, text=True)
+    except OSError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    if proc.returncode != 0:
+        print(json.dumps({"error": "FFmpeg video decoding failed", "returncode": proc.returncode,
+                          "details": proc.stderr[-4000:]}), file=sys.stderr)
+        return 2
     spans = parse_blackdetect(proc.stderr)
     print(json.dumps({"black_spans": spans, "count": len(spans)}, indent=2))
     return 1 if spans else 0

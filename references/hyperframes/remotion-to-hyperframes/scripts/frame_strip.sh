@@ -1,107 +1,73 @@
 #!/usr/bin/env bash
-# frame_strip.sh — produce a side-by-side comparison strip from two videos.
-#
-# Used to debug failing render_diff.sh runs visually: pick a sample timestamp
-# range, extract frames from both videos, lay them out as a grid for review.
-#
-# Usage:
-#   frame_strip.sh <baseline.mp4> <translated.mp4> [output-dir] [samples]
-#
-# Defaults: output-dir=./strip-out, samples=8 (evenly spaced across duration).
-# Output:
-#   strip.png         — single PNG with `samples` rows, each row is
-#                       (baseline frame | translated frame) at one timestamp
-#   timestamps.txt    — the timestamps sampled
-
+# Compare independently decoded frames at matching timestamps, not split streams.
+# Usage: frame_strip.sh baseline.mp4 translated.mp4 [output-dir] [samples]
 set -euo pipefail
-
 if [[ $# -lt 2 || $# -gt 4 ]]; then
-  echo "usage: $0 <baseline.mp4> <translated.mp4> [output-dir] [samples]" >&2
+  echo "usage: $0 baseline.mp4 translated.mp4 [output-dir] [samples]" >&2
   exit 2
 fi
-
-BASELINE="$1"
-TRANSLATED="$2"
-OUTDIR="${3:-./strip-out}"
-SAMPLES="${4:-8}"
-
-if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
-  echo "error: ffmpeg/ffprobe not on PATH" >&2
-  exit 2
-fi
-
-mkdir -p "$OUTDIR"
-
-# Build the strip in a single ffmpeg invocation. Two inputs (baseline and
-# translated) are sampled at N evenly-spaced timestamps via the `select`
-# filter, then assembled with hstack (per-row pairs) + vstack (rows).
-# Earlier versions spawned 3 ffmpeg calls per timestamp + a final vstack;
-# this is one call regardless of N.
-python3 - "$BASELINE" "$TRANSLATED" "$OUTDIR" "$SAMPLES" <<'PY'
+python3 - "$1" "$2" "${3:-./strip-out}" "${4:-8}" <<'PY'
 import json
-import shutil
+import math
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
+from PIL import Image
 
-baseline, translated, outdir, samples = sys.argv[1], sys.argv[2], Path(sys.argv[3]), int(sys.argv[4])
-
-# Read fps + duration from the baseline so we can map timestamps to frame
-# indexes for the `select` filter (frame-accurate, doesn't depend on
-# keyframe alignment).
-probe = subprocess.run(
-    ["ffprobe", "-v", "error", "-select_streams", "v:0",
-     "-show_entries", "stream=r_frame_rate,nb_read_frames,duration",
-     "-show_entries", "format=duration",
-     "-of", "json", "-count_frames", "--", baseline],
-    check=True, capture_output=True, text=True,
-)
-data = json.loads(probe.stdout)
-stream = data["streams"][0]
-num, den = stream["r_frame_rate"].split("/")
-fps = float(num) / float(den)
-nb_frames = int(stream.get("nb_read_frames") or 0)
-if nb_frames <= 0:
-    duration = float(stream.get("duration") or data["format"]["duration"])
-    nb_frames = int(duration * fps)
-
-# Even-spaced sample frames in the 5%-95% window (skip fade-in/out noise).
-start = max(0, int(nb_frames * 0.05))
-end = max(start, int(nb_frames * 0.95) - 1)
-if samples == 1:
-    frames = [start]
-else:
-    step = (end - start) / (samples - 1)
-    frames = [int(start + i * step) for i in range(samples)]
-
-(outdir / "timestamps.txt").write_text(
-    "\n".join(f"{f / fps:.3f}" for f in frames) + "\n"
-)
-
-# select='eq(n,F1)+eq(n,F2)+...' picks exactly the listed frames from each
-# input. We then hstack per-frame pairs and vstack the result.
-select_expr = "+".join(f"eq(n,{f})" for f in frames)
-n = len(frames)
-filter_parts = [
-    f"[0:v]select='{select_expr}',setpts=N/FRAME_RATE/TB,split={n}"
-    + "".join(f"[b{i}]" for i in range(n)),
-    f"[1:v]select='{select_expr}',setpts=N/FRAME_RATE/TB,split={n}"
-    + "".join(f"[t{i}]" for i in range(n)),
-]
-for i in range(n):
-    filter_parts.append(f"[b{i}][t{i}]hstack=inputs=2[row{i}]")
-filter_parts.append(
-    "".join(f"[row{i}]" for i in range(n)) + f"vstack=inputs={n}[out]"
-)
-filter_graph = ";".join(filter_parts)
-
-cmd = [
-    "ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
-    "-i", baseline, "-i", translated,
-    "-filter_complex", filter_graph,
-    "-map", "[out]", "-frames:v", "1",
-    str(outdir / "strip.png"),
-]
-subprocess.run(cmd, check=True)
-print(f"wrote {outdir / 'strip.png'} ({n} samples)")
+try:
+    baseline, translated, raw_out, raw_samples = sys.argv[1:]
+    samples = int(raw_samples)
+    if samples <= 0:
+        raise ValueError('samples must be a positive integer')
+    outdir = Path(raw_out)
+    def probe(path):
+        if not Path(path).is_file():
+            raise ValueError(f'video does not exist: {path}')
+        data = json.loads(subprocess.run(
+            ['ffprobe', '-v', 'error', '-select_streams', 'v:0',
+             '-show_entries', 'stream=avg_frame_rate,duration:format=duration', '-of', 'json', path],
+            check=True, capture_output=True, text=True).stdout)
+        stream = data['streams'][0]
+        num, den = map(float, stream['avg_frame_rate'].split('/'))
+        fps = num / den
+        duration = float(stream.get('duration') or data['format']['duration'])
+        if not all(math.isfinite(v) and v > 0 for v in [fps, duration]):
+            raise ValueError('video must have positive finite duration and frame rate')
+        return fps, duration
+    base_fps, base_duration = probe(baseline)
+    translated_fps, translated_duration = probe(translated)
+    fps = min(base_fps, translated_fps)
+    count = max(1, int(min(base_duration, translated_duration) * fps))
+    start = int(count * .05)
+    end = max(start, int(count * .95) - 1)
+    samples = min(samples, end - start + 1)
+    frames = [start] if samples == 1 else [round(start + i * (end-start)/(samples-1)) for i in range(samples)]
+    times = [f / fps for f in frames]
+    outdir.mkdir(parents=True, exist_ok=True)
+    rows = []
+    with tempfile.TemporaryDirectory() as temp:
+        for i, time in enumerate(times):
+            pair = []
+            for j, video in enumerate([baseline, translated]):
+                dest = Path(temp) / f'{i}-{j}.png'
+                subprocess.run(['ffmpeg', '-y', '-v', 'error', '-xerror', '-ss', str(time),
+                                '-i', video, '-map', '0:v:0', '-frames:v', '1', str(dest)], check=True)
+                with Image.open(dest) as image:
+                    pair.append(image.convert('RGB'))
+            if pair[0].size != pair[1].size:
+                raise ValueError('videos must have matching frame dimensions')
+            width, height = pair[0].size
+            row = Image.new('RGB', (2*width, height))
+            row.paste(pair[0], (0, 0)); row.paste(pair[1], (width, 0))
+            rows.append(row)
+    strip = Image.new('RGB', (rows[0].width, sum(row.height for row in rows)))
+    for i, row in enumerate(rows):
+        strip.paste(row, (0, i * row.height))
+    strip.save(outdir / 'strip.png')
+    (outdir / 'timestamps.txt').write_text('\n'.join(f'{t:.9f}' for t in times) + '\n')
+    print(f'wrote {outdir / "strip.png"} ({samples} distinct timestamp samples; Pillow required)')
+except (ValueError, OSError, KeyError, IndexError, ZeroDivisionError, subprocess.CalledProcessError) as exc:
+    print(f'error: {exc}', file=sys.stderr)
+    sys.exit(2)
 PY

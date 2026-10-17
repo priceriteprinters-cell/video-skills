@@ -23,6 +23,8 @@ Load every face before measuring or capturing text. In a browser renderer await 
 
 ## Hierarchy and motion
 
+Do not accept `document.fonts.check()` alone as proof: it can return true when no matching face is registered. Verify that each required family/weight has a registered FontFace with status `loaded`, confirm local font requests succeeded, and inspect representative glyphs before rendering. Preserve real fixed-weight or variable-weight metadata in CSS. After checking licenses, update the asset manifest's rights review field with the supporting notice; do not leave it false while claiming verification.
+
 Define title, subtitle, body, label, caption and data roles once. Use responsive composition appropriate to the chosen canvas, not a fixed landscape layout shrunk for portrait. Start with title/body size ratios around 2–3:1 and adjust to actual copy and viewing distance; these are suggestions, not output acceptance thresholds. Check phone-scale legibility. Prefer shorter copy and better wrapping over tiny labels. Keep caption placement stable and separate from headline motion.
 
 Use tracking intentionally and avoid cramped all-caps paragraphs. Keep body lines comfortable, use consistent line height, and avoid widows or abrupt weight changes. Animate words or phrases with coordinated staggering, masks, emphasis and smooth settles; preserve a readable hold before exit. Do not animate every line with unrelated effects. Respect motion sensitivity: avoid rapid flashing and aggressive shake.

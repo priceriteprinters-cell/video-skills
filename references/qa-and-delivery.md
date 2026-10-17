@@ -53,10 +53,12 @@ Check finite positive duration, correct dimensions, expected video/audio streams
 When needed, decode-test the export:
 
 ```bash
-ffmpeg -v error -i "OUTPUT.mp4" -f null -
+ffmpeg -v error -xerror -i "OUTPUT.mp4" -map 0:v:0 -f null -
 ```
 
 **Success:** decode finishes without errors. Decode success does not prove good composition or synchronization.
+
+Check every command's exit status. `production_check.py` returns 0 for completed clean checks, 1 for findings, and 2 for input/tool failures; missing, corrupt, audio-only, or empty scan inputs must never be recorded as clean. Run helper regressions before relying on a newly installed version.
 
 ## Visual review
 
@@ -68,11 +70,15 @@ Do not call a set of still frames a motion review. Review playback or short movi
 
 If complete playback review is unavailable, label the output a rendered draft for review, even if sampled layouts look clean. Do not hide that limitation in internal notes.
 
+An empty bright card can pass black detection: separately inspect whether the opening identifies the subject. Frame-to-frame differences are not proof of purposeful motion, and intentional static reading holds are not defects. Verify comparison-strip rows against independently extracted timestamps before claiming temporal coverage.
+
 ## Audio and synchronization review
 
 Apply the audio reference's measurement and listening checks. Inspect the beginning, a dense speech section, major SFX hits, the strongest music passage, quiet transitions, and the last spoken phrase.
 
 Check for AV drift near the end, not only at the beginning. Verify event contact/reveal times on the exported file rather than trusting timeline entries alone. State whether sync is phrase-level, word-level, or frame-checked.
+
+Report measured loudness against the agreed target, not just peak compliance. For sparse SFX-only clips, document intentional silence and any justified target deviation rather than blindly amplifying effects. A shared cue list proves scheduling, not audible synchronization; without listening, disclose that sound quality and perceptual timing remain unreviewed.
 
 ## Known failure categories
 

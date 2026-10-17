@@ -193,6 +193,8 @@ Preview before rendering (Remotion Studio / `<Player>`, or HyperFrames Studio/sn
 
 The final report must identify the actual duration and dimensions when known, confirm which requested sound layers exist, distinguish layout sampling from motion playback review, and state remaining limitations. Keep the visible reply concise even though the internal workflow is detailed.
 
+Before trusting a fresh installation, run `python3 -m unittest discover -s scripts -p 'test_*.py'` and `bash references/hyperframes/remotion-to-hyperframes/scripts/tests/smoke.sh` (FFmpeg, ffprobe and Pillow required). These test helpers and synthetic comparisons, not real engine rendering or production playback. Never upgrade helper success into an end-to-end production claim; retain separate evidence for fonts, licenses, decode, layout, motion playback, audio listening, and measured levels.
+
 ## Folder layout
 
 This is one skill: `SKILL.md` (this file) plus `references/` (production stage docs, the Remotion tree, the HyperFrames tree, motion doctrine, registry blocks, workflow formats), `scripts/` (Python helpers with their own tests), and `assets/` (design presets). Every path above resolves inside this folder. Nested engine docs use `GUIDE.md` as their entry file name.

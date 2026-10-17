@@ -23,7 +23,7 @@ ffmpeg -y -hide_banner -loglevel error \
   -pix_fmt yuv420p "$WORK/baseline.mp4"
 cp "$WORK/baseline.mp4" "$WORK/translated.mp4"
 
-R2HF_SSIM_THRESHOLD=0.99 "$SCRIPTS_DIR/render_diff.sh" \
+R2HF_SSIM_THRESHOLD=0.99 bash "$SCRIPTS_DIR/render_diff.sh" \
   "$WORK/baseline.mp4" "$WORK/translated.mp4" "$WORK/diff" >/dev/null
 
 MEAN=$(python3 -c "import json,sys; print(json.load(open('$WORK/diff/summary.json'))['mean'])")
@@ -41,7 +41,7 @@ ffmpeg -y -hide_banner -loglevel error \
   -pix_fmt yuv420p "$WORK/different.mp4"
 
 set +e
-R2HF_SSIM_THRESHOLD=0.99 "$SCRIPTS_DIR/render_diff.sh" \
+R2HF_SSIM_THRESHOLD=0.99 bash "$SCRIPTS_DIR/render_diff.sh" \
   "$WORK/baseline.mp4" "$WORK/different.mp4" "$WORK/diff2" >/dev/null
 RC=$?
 set -e
@@ -53,7 +53,31 @@ DIFF_MEAN=$(python3 -c "import json; print(json.load(open('$WORK/diff2/summary.j
 echo "    different inputs → mean SSIM=$DIFF_MEAN (correctly failed at 0.99)"
 
 echo "==> smoke: frame_strip.sh produces a strip"
-"$SCRIPTS_DIR/frame_strip.sh" "$WORK/baseline.mp4" "$WORK/different.mp4" "$WORK/strip" 4 >/dev/null
+bash "$SCRIPTS_DIR/frame_strip.sh" "$WORK/baseline.mp4" "$WORK/different.mp4" "$WORK/strip" 4 >/dev/null
+python3 - "$WORK" <<'PY'
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+from PIL import Image, ImageChops
+work = Path(sys.argv[1])
+times = [float(t) for t in (work / 'strip/timestamps.txt').read_text().splitlines()]
+assert len(times) == len(set(times)) == 4
+with Image.open(work / 'strip/strip.png') as strip, tempfile.TemporaryDirectory() as tmp:
+    assert strip.size == (640, 960)
+    hashes = []
+    for i, time in enumerate(times):
+        for j, video in enumerate(['baseline.mp4', 'different.mp4']):
+            path = Path(tmp) / f'{i}-{j}.png'
+            subprocess.run(['ffmpeg', '-y', '-v', 'error', '-ss', str(time), '-i', str(work/video),
+                            '-frames:v', '1', str(path)], check=True)
+            with Image.open(path) as frame:
+                crop = strip.crop((320*j, 240*i, 320*(j+1), 240*(i+1))).convert('RGB')
+                assert ImageChops.difference(crop, frame.convert('RGB')).getbbox() is None
+                if j == 0:
+                    hashes.append(crop.tobytes())
+    assert len(set(hashes)) == 4, 'comparison rows repeat a single frame'
+PY
 if [[ ! -f "$WORK/strip/strip.png" ]]; then
   echo "FAIL: frame_strip.sh did not produce strip.png"
   exit 1
