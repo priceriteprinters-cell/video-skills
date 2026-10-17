@@ -1,5 +1,5 @@
 ---
-name: motion-graphics
+name: motion-graphics-lovable
 description: Unified motion graphics and programmatic video skill combining Remotion (React) and HyperFrames (HTML + GSAP) knowledge. Use for any request to make, edit, animate, caption, or render a video — kinetic typography, explainers, product launch promos, logo reveals, lower-thirds, captions/subtitles, slideshows, music-synced videos, data-viz, maps, 3D, transitions, voiceover, SFX, or porting Remotion to HyperFrames.
 ---
 
