@@ -151,6 +151,10 @@ motion-graphics/
     └── registry-blocks/     # 7 ready-made 3D title / carousel / camera-orbit blocks
 ```
 
+### Lovable edition
+
+Lovable skill uploads allow at most 200 files, 1 MB each, 10 MB total. [`motion-graphics-lovable/`](motion-graphics-lovable/) is the same knowledge packed into 41 files (scripts and templates are fetched from the full `motion-graphics/` folder on demand). Zip that folder and upload it in Lovable.
+
 ### Tested
 
 Verified end-to-end: every path in `SKILL.md` resolves, internal links checked (missing templates restored), all bundled `.mjs/.cjs/.py/.sh` scripts pass syntax checks, and a Remotion kinetic-title composition built from the skill plays correctly in a React (TanStack Start) app.
