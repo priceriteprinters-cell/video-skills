@@ -1,17 +1,16 @@
 # Video Skills
 
-Two agent skills for making videos:
+One agent skill that bundles three sub-guides behind a single router (`SKILL.md`):
 
-| Skill | What it's for |
+| Sub-guide | What it's for |
 |---|---|
-| [`complete-video-production`](complete-video-production/) | End-to-end production: narration or script → researched, timed, verified MP4 + asset packs |
-| [`motion-graphics`](motion-graphics/) | Unified Remotion + HyperFrames engine knowledge: animation, transitions, captions, 3D, maps, audio, rendering |
+| [`complete-video-production`](complete-video-production/GUIDE.md) | End-to-end production: narration or script → researched, timed, verified MP4 + asset packs |
+| [`motion-graphics`](motion-graphics/GUIDE.md) | Unified Remotion + HyperFrames engine knowledge: animation, transitions, captions, 3D, maps, audio, rendering |
+| [`motion-graphics-lovable`](motion-graphics-lovable/GUIDE.md) | The same motion-graphics knowledge in a flattened, Lovable-friendly reference layout |
 
-Use them together: `complete-video-production` plans, sources and verifies; `motion-graphics` builds the animation.
+Install it once; the router picks the sub-guide for the task. `complete-video-production` plans, sources and verifies, `motion-graphics` builds the animation.
 
 ---
-
-## Complete Video Production
 
 A [Claude Code / agent skill](https://github.com/anthropics/skills) for **end-to-end motion-graphics video production** — from narration audio or a script to a finished, synchronized, verified MP4 — plus a standalone mode that generates verified AI PNG asset packs.
 
@@ -21,19 +20,7 @@ A [Claude Code / agent skill](https://github.com/anthropics/skills) for **end-to
 npx skills add priceriteprinters-cell/video-skills
 ```
 
-Install only this skill from the repo:
-
-```bash
-npx skills add priceriteprinters-cell/video-skills --skill complete-video-production
-```
-
-Install only the motion graphics skill:
-
-```bash
-npx skills add priceriteprinters-cell/video-skills --skill motion-graphics
-```
-
-Re-run the same command anytime to pull the latest version.
+That installs the single `video-skills` skill — all three sub-guides come with it. Re-run the same command anytime to pull the latest version.
 
 ## What it does
 
@@ -68,9 +55,21 @@ Animated explainers, kinetic typography, educational videos, product walkthrough
 
 ## Repository structure
 
+Everything installs as one skill folder; `SKILL.md` at its root routes to the sub-guide that fits the task.
+
+```
+video-skills/
+├── SKILL.md                     # Router: picks the sub-guide for the task
+├── complete-video-production/   # GUIDE.md + assets/, references/, scripts/ (detailed below)
+├── motion-graphics/             # GUIDE.md + references/ (remotion, hyperframes, doctrine, registry-blocks)
+└── motion-graphics-lovable/     # GUIDE.md + references/ (flattened layout)
+```
+
+### complete-video-production
+
 ```
 complete-video-production/
-├── SKILL.md                  # Entry point: scope, briefing, workflow, boundaries
+├── GUIDE.md                  # Entry point: scope, briefing, workflow, boundaries
 ├── assets/
 │   └── design-presets.json   # 29 font pairings + 24 palette presets
 ├── references/
@@ -123,7 +122,7 @@ python3 scripts/test_production_check.py
 
 ## Version
 
-Current: **v7** (`complete-video-production_v7`).
+Current: **v7** (`complete-video-production_v7`), published as the combined `video-skills` skill.
 
 ---
 
@@ -143,7 +142,7 @@ One skill that merges **all 12 Remotion skills** ([remotion-dev/skills](https://
 
 ```
 motion-graphics/
-├── SKILL.md                 # Router: engine choice, doctrine, task routing, delivery
+├── GUIDE.md                 # Router: engine choice, doctrine, task routing, delivery
 └── references/
     ├── remotion/            # All 12 Remotion skills (create, markup, captions, maps, render, studio, saas, upgrade…)
     ├── hyperframes/         # 21 HyperFrames skills + workflows, templates and helper scripts
@@ -153,7 +152,7 @@ motion-graphics/
 
 ### Lovable edition
 
-Lovable skill uploads allow at most 200 files, 1 MB each, 10 MB total. [`motion-graphics-lovable/`](motion-graphics-lovable/) is the same knowledge packed into 41 files (scripts and templates are fetched from the full `motion-graphics/` folder on demand). Zip that folder and upload it in Lovable.
+Lovable skill uploads allow at most 200 files, 1 MB each, 10 MB total. [`motion-graphics-lovable/`](motion-graphics-lovable/) is the same knowledge packed into 69 files (scripts and templates are fetched from the full `motion-graphics/` folder on demand). Zip that folder and upload it in Lovable — the full combined skill (929 files, ~12 MB) exceeds those limits.
 
 ### Tested
 
