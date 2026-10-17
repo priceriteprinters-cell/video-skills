@@ -1,0 +1,828 @@
+{
+ "font_pairings": {
+  "modern": {
+   "label": "Space Grotesk + DM Sans",
+   "category": "modern tech",
+   "mood": "crisp, product, startup",
+   "heading": "Space Grotesk",
+   "body": "DM Sans",
+   "captions": "DM Sans",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "tool_preview_preset": "space-grotesk-dm-sans",
+   "google_dirs": {
+    "Space Grotesk": "spacegrotesk",
+    "DM Sans": "dmsans"
+   }
+  },
+  "syne-jakarta": {
+   "label": "Syne + Plus Jakarta Sans",
+   "category": "creative studio",
+   "mood": "expressive, artsy",
+   "heading": "Syne",
+   "body": "Plus Jakarta Sans",
+   "captions": "Plus Jakarta Sans",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    600,
+    700,
+    800
+   ],
+   "tool_preview_preset": "syne-plus-jakarta",
+   "google_dirs": {
+    "Syne": "syne",
+    "Plus Jakarta Sans": "plusjakartasans"
+   }
+  },
+  "outfit-figtree": {
+   "label": "Outfit + Figtree",
+   "category": "friendly modern",
+   "mood": "clean, approachable SaaS",
+   "heading": "Outfit",
+   "body": "Figtree",
+   "captions": "Figtree",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "tool_preview_preset": "outfit-figtree",
+   "google_dirs": {
+    "Outfit": "outfit",
+    "Figtree": "figtree"
+   }
+  },
+  "sora-manrope": {
+   "label": "Sora + Manrope",
+   "category": "futuristic clean",
+   "mood": "fintech, AI, calm",
+   "heading": "Sora",
+   "body": "Manrope",
+   "captions": "Manrope",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "tool_preview_preset": "sora-manrope",
+   "google_dirs": {
+    "Sora": "sora",
+    "Manrope": "manrope"
+   }
+  },
+  "urbanist-epilogue": {
+   "label": "Urbanist + Epilogue",
+   "category": "geometric",
+   "mood": "architectural, minimal",
+   "heading": "Urbanist",
+   "body": "Epilogue",
+   "captions": "Epilogue",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "tool_preview_preset": "urbanist-epilogue",
+   "google_dirs": {
+    "Urbanist": "urbanist",
+    "Epilogue": "epilogue"
+   }
+  },
+  "instrument-work": {
+   "label": "Instrument Serif + Work Sans",
+   "category": "editorial luxe",
+   "mood": "fashion, premium, refined",
+   "heading": "Instrument Serif",
+   "body": "Work Sans",
+   "captions": "Work Sans",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    400
+   ],
+   "tool_preview_preset": "instrument-serif-work-sans",
+   "google_dirs": {
+    "Instrument Serif": "instrumentserif",
+    "Work Sans": "worksans"
+   }
+  },
+  "editorial": {
+   "label": "DM Serif Display + Manrope",
+   "category": "editorial",
+   "mood": "magazine, storytelling",
+   "heading": "DM Serif Display",
+   "body": "Manrope",
+   "captions": "Manrope",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    400
+   ],
+   "google_dirs": {
+    "DM Serif Display": "dmserifdisplay",
+    "Manrope": "manrope"
+   }
+  },
+  "dmserif-fira": {
+   "label": "DM Serif Display + Fira Sans",
+   "category": "editorial news",
+   "mood": "journalism, documentary",
+   "heading": "DM Serif Display",
+   "body": "Fira Sans",
+   "captions": "Fira Sans",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    400
+   ],
+   "tool_preview_preset": "dm-serif-display-fira-sans",
+   "google_dirs": {
+    "DM Serif Display": "dmserifdisplay",
+    "Fira Sans": "firasans"
+   }
+  },
+  "cormorant-karla": {
+   "label": "Cormorant + Karla",
+   "category": "elegant classic",
+   "mood": "wedding, beauty, heritage",
+   "heading": "Cormorant",
+   "body": "Karla",
+   "captions": "Karla",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    500,
+    600,
+    700
+   ],
+   "tool_preview_preset": "cormorant-karla",
+   "google_dirs": {
+    "Cormorant": "cormorant",
+    "Karla": "karla"
+   }
+  },
+  "baskerville-plex": {
+   "label": "Libre Baskerville + IBM Plex Sans",
+   "category": "scholarly",
+   "mood": "education, history, finance",
+   "heading": "Libre Baskerville",
+   "body": "IBM Plex Sans",
+   "captions": "IBM Plex Sans",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    400,
+    700
+   ],
+   "tool_preview_preset": "libre-baskerville-ibm-plex",
+   "google_dirs": {
+    "Libre Baskerville": "librebaskerville",
+    "IBM Plex Sans": "ibmplexsans"
+   }
+  },
+  "lora-nunito": {
+   "label": "Lora + Nunito Sans",
+   "category": "warm literary",
+   "mood": "wellness, lifestyle, books",
+   "heading": "Lora",
+   "body": "Nunito Sans",
+   "captions": "Nunito Sans",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "tool_preview_preset": "lora-nunito-sans",
+   "google_dirs": {
+    "Lora": "lora",
+    "Nunito Sans": "nunitosans"
+   }
+  },
+  "fraunces-manrope": {
+   "label": "Fraunces + Manrope",
+   "category": "soft retro serif",
+   "mood": "food, craft, warm brand",
+   "heading": "Fraunces",
+   "body": "Manrope",
+   "captions": "Manrope",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    400,
+    600,
+    800
+   ],
+   "google_dirs": {
+    "Fraunces": "fraunces",
+    "Manrope": "manrope"
+   }
+  },
+  "bold": {
+   "label": "Bebas Neue + Source Sans 3",
+   "category": "bold impact",
+   "mood": "sports, promos, headlines",
+   "heading": "Bebas Neue",
+   "body": "Source Sans 3",
+   "captions": "Source Sans 3",
+   "weights": [
+    400,
+    600,
+    700
+   ],
+   "heading_weights": [
+    400
+   ],
+   "google_dirs": {
+    "Bebas Neue": "bebasneue",
+    "Source Sans 3": "sourcesans3"
+   }
+  },
+  "bebas-barlow": {
+   "label": "Bebas Neue + Barlow",
+   "category": "bold condensed",
+   "mood": "fitness, events, energy",
+   "heading": "Bebas Neue",
+   "body": "Barlow",
+   "captions": "Barlow",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    400
+   ],
+   "tool_preview_preset": "bebas-neue-barlow",
+   "google_dirs": {
+    "Bebas Neue": "bebasneue",
+    "Barlow": "barlow"
+   }
+  },
+  "anton-roboto": {
+   "label": "Anton + Roboto Flex",
+   "category": "loud poster",
+   "mood": "social hooks, sales",
+   "heading": "Anton",
+   "body": "Roboto Flex",
+   "captions": "Roboto Flex",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    400
+   ],
+   "google_dirs": {
+    "Anton": "anton",
+    "Roboto Flex": "robotoflex"
+   }
+  },
+  "archivo-hind": {
+   "label": "Archivo Black + Hind",
+   "category": "heavy grotesk",
+   "mood": "announcements, ads",
+   "heading": "Archivo Black",
+   "body": "Hind",
+   "captions": "Hind",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    400
+   ],
+   "tool_preview_preset": "archivo-black-hind",
+   "google_dirs": {
+    "Archivo Black": "archivoblack",
+    "Hind": "hind"
+   }
+  },
+  "abril-cabin": {
+   "label": "Abril Fatface + Cabin",
+   "category": "fat display",
+   "mood": "vintage, campaign",
+   "heading": "Abril Fatface",
+   "body": "Cabin",
+   "captions": "Cabin",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    400
+   ],
+   "tool_preview_preset": "abril-fatface-cabin",
+   "google_dirs": {
+    "Abril Fatface": "abrilfatface",
+    "Cabin": "cabin"
+   }
+  },
+  "oswald-lato": {
+   "label": "Oswald + Lato",
+   "category": "condensed classic",
+   "mood": "corporate, reports",
+   "heading": "Oswald",
+   "body": "Lato",
+   "captions": "Lato",
+   "weights": [
+    400,
+    700
+   ],
+   "google_dirs": {
+    "Oswald": "oswald",
+    "Lato": "lato"
+   }
+  },
+  "bricolage-instrument": {
+   "label": "Bricolage Grotesque + Instrument Sans",
+   "category": "quirky contemporary",
+   "mood": "indie brands, culture",
+   "heading": "Bricolage Grotesque",
+   "body": "Instrument Sans",
+   "captions": "Instrument Sans",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    500,
+    700,
+    800
+   ],
+   "google_dirs": {
+    "Bricolage Grotesque": "bricolagegrotesque",
+    "Instrument Sans": "instrumentsans"
+   }
+  },
+  "unbounded-onest": {
+   "label": "Unbounded + Onest",
+   "category": "wide futuristic",
+   "mood": "web3, music, gaming",
+   "heading": "Unbounded",
+   "body": "Onest",
+   "captions": "Onest",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    500,
+    700,
+    800
+   ],
+   "google_dirs": {
+    "Unbounded": "unbounded",
+    "Onest": "onest"
+   }
+  },
+  "orbitron-exo": {
+   "label": "Orbitron + Exo 2",
+   "category": "sci-fi",
+   "mood": "gaming, space, tech",
+   "heading": "Orbitron",
+   "body": "Exo 2",
+   "captions": "Exo 2",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    500,
+    700,
+    900
+   ],
+   "google_dirs": {
+    "Orbitron": "orbitron",
+    "Exo 2": "exo2"
+   }
+  },
+  "jetbrains-work": {
+   "label": "JetBrains Mono + Work Sans",
+   "category": "developer",
+   "mood": "coding, data, terminals",
+   "heading": "JetBrains Mono",
+   "body": "Work Sans",
+   "captions": "Work Sans",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "tool_preview_preset": "jetbrains-mono-work-sans",
+   "mono": "JetBrains Mono",
+   "google_dirs": {
+    "JetBrains Mono": "jetbrainsmono",
+    "Work Sans": "worksans"
+   }
+  },
+  "spacemono-rubik": {
+   "label": "Space Mono + Rubik",
+   "category": "retro tech",
+   "mood": "hacker, experimental",
+   "heading": "Space Mono",
+   "body": "Rubik",
+   "captions": "Rubik",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    400,
+    700
+   ],
+   "tool_preview_preset": "space-mono-rubik",
+   "mono": "Space Mono",
+   "google_dirs": {
+    "Space Mono": "spacemono",
+    "Rubik": "rubik"
+   }
+  },
+  "fredoka-nunito": {
+   "label": "Fredoka + Nunito",
+   "category": "playful rounded",
+   "mood": "kids, education, fun",
+   "heading": "Fredoka",
+   "body": "Nunito",
+   "captions": "Nunito",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    500,
+    600,
+    700
+   ],
+   "google_dirs": {
+    "Fredoka": "fredoka",
+    "Nunito": "nunito"
+   }
+  },
+  "baloo-nunito": {
+   "label": "Baloo 2 + Nunito",
+   "category": "bubbly",
+   "mood": "cartoon explainers",
+   "heading": "Baloo 2",
+   "body": "Nunito",
+   "captions": "Nunito",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    500,
+    700,
+    800
+   ],
+   "google_dirs": {
+    "Baloo 2": "baloo2",
+    "Nunito": "nunito"
+   }
+  },
+  "caveat-figtree": {
+   "label": "Caveat + Figtree",
+   "category": "handwritten",
+   "mood": "personal, notes, whiteboard",
+   "heading": "Caveat",
+   "body": "Figtree",
+   "captions": "Figtree",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "heading_weights": [
+    500,
+    700
+   ],
+   "google_dirs": {
+    "Caveat": "caveat",
+    "Figtree": "figtree"
+   }
+  },
+  "single": {
+   "label": "Manrope",
+   "category": "single family",
+   "mood": "neutral, versatile",
+   "heading": "Manrope",
+   "body": "Manrope",
+   "captions": "Manrope",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "google_dirs": {
+    "Manrope": "manrope"
+   }
+  },
+  "single-plex": {
+   "label": "IBM Plex Sans",
+   "category": "single family",
+   "mood": "technical, trustworthy",
+   "heading": "IBM Plex Sans",
+   "body": "IBM Plex Sans",
+   "captions": "IBM Plex Sans",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "google_dirs": {
+    "IBM Plex Sans": "ibmplexsans"
+   }
+  },
+  "single-noto": {
+   "label": "Noto Sans",
+   "category": "single multilingual",
+   "mood": "widest script coverage",
+   "heading": "Noto Sans",
+   "body": "Noto Sans",
+   "captions": "Noto Sans",
+   "weights": [
+    400,
+    500,
+    700
+   ],
+   "google_dirs": {
+    "Noto Sans": "notosans"
+   }
+  }
+ },
+ "palettes": {
+  "studio-light": {
+   "label": "Studio light",
+   "theme": "light",
+   "category": "neutral",
+   "background": "#F7F8FA",
+   "surface": "#FFFFFF",
+   "text": "#15212B",
+   "accent": "#12634E",
+   "secondary": "#8B3B21"
+  },
+  "graphite-citrus": {
+   "label": "Graphite citrus",
+   "theme": "dark",
+   "category": "tech",
+   "background": "#15171A",
+   "surface": "#22252A",
+   "text": "#F6F7F9",
+   "accent": "#D8F36A",
+   "secondary": "#73CBE5"
+  },
+  "editorial-rose": {
+   "label": "Editorial rose",
+   "theme": "light",
+   "category": "editorial",
+   "background": "#FFF7FA",
+   "surface": "#FFFFFF",
+   "text": "#302032",
+   "accent": "#973254",
+   "secondary": "#245C6B"
+  },
+  "midnight-signal": {
+   "label": "Midnight signal",
+   "theme": "dark",
+   "category": "tech",
+   "background": "#111D25",
+   "surface": "#1A2A35",
+   "text": "#F0F6FA",
+   "accent": "#7EE0C0",
+   "secondary": "#F5B96D"
+  },
+  "paper-ink": {
+   "label": "Paper and ink",
+   "theme": "light",
+   "category": "editorial",
+   "background": "#F4EFE6",
+   "surface": "#FBF8F2",
+   "text": "#1C1A17",
+   "accent": "#B23A1E",
+   "secondary": "#2F4A6D"
+  },
+  "noir-gold": {
+   "label": "Noir gold",
+   "theme": "dark",
+   "category": "luxury",
+   "background": "#0E0D0B",
+   "surface": "#1B1915",
+   "text": "#F3EEE4",
+   "accent": "#D4A84B",
+   "secondary": "#9C8B6E"
+  },
+  "ocean-depth": {
+   "label": "Ocean depth",
+   "theme": "dark",
+   "category": "calm",
+   "background": "#0B2230",
+   "surface": "#123244",
+   "text": "#EAF4F8",
+   "accent": "#4FC3D9",
+   "secondary": "#F2C66D"
+  },
+  "seafoam-sand": {
+   "label": "Seafoam sand",
+   "theme": "light",
+   "category": "calm",
+   "background": "#F2F7F4",
+   "surface": "#FFFFFF",
+   "text": "#17332C",
+   "accent": "#1E7D68",
+   "secondary": "#C0703A"
+  },
+  "sunset-pop": {
+   "label": "Sunset pop",
+   "theme": "dark",
+   "category": "energetic",
+   "background": "#1E0F2A",
+   "surface": "#2B1840",
+   "text": "#FFF4EC",
+   "accent": "#FF7A45",
+   "secondary": "#FFC845"
+  },
+  "neon-arcade": {
+   "label": "Neon arcade",
+   "theme": "dark",
+   "category": "gaming",
+   "background": "#0A0A14",
+   "surface": "#16162A",
+   "text": "#F2F2FF",
+   "accent": "#FF2E88",
+   "secondary": "#2EF2FF"
+  },
+  "forest-moss": {
+   "label": "Forest moss",
+   "theme": "dark",
+   "category": "nature",
+   "background": "#13201A",
+   "surface": "#1D2E25",
+   "text": "#EEF3EC",
+   "accent": "#9BCF6A",
+   "secondary": "#E3B85C"
+  },
+  "sage-cream": {
+   "label": "Sage cream",
+   "theme": "light",
+   "category": "wellness",
+   "background": "#F5F3EA",
+   "surface": "#FFFDF6",
+   "text": "#26332A",
+   "accent": "#4E7A55",
+   "secondary": "#B5654A"
+  },
+  "corporate-blue": {
+   "label": "Corporate trust",
+   "theme": "light",
+   "category": "corporate",
+   "background": "#F5F8FC",
+   "surface": "#FFFFFF",
+   "text": "#0F1E33",
+   "accent": "#1F5FBF",
+   "secondary": "#0E8A7A"
+  },
+  "navy-coral": {
+   "label": "Navy coral",
+   "theme": "dark",
+   "category": "corporate",
+   "background": "#0F1A2E",
+   "surface": "#18263F",
+   "text": "#F1F4F9",
+   "accent": "#FF7B6B",
+   "secondary": "#7FB7FF"
+  },
+  "candy-pastel": {
+   "label": "Candy pastel",
+   "theme": "light",
+   "category": "playful",
+   "background": "#FFF6FB",
+   "surface": "#FFFFFF",
+   "text": "#2B2140",
+   "accent": "#C2367F",
+   "secondary": "#3B6FD6"
+  },
+  "sunny-kids": {
+   "label": "Sunny kids",
+   "theme": "light",
+   "category": "playful",
+   "background": "#FFFBEA",
+   "surface": "#FFFFFF",
+   "text": "#2A2414",
+   "accent": "#D2531E",
+   "secondary": "#1E7FA8"
+  },
+  "crimson-sport": {
+   "label": "Crimson sport",
+   "theme": "dark",
+   "category": "sports",
+   "background": "#121212",
+   "surface": "#1E1E1E",
+   "text": "#FFFFFF",
+   "accent": "#E8312F",
+   "secondary": "#F5D547"
+  },
+  "mono-swiss": {
+   "label": "Swiss mono",
+   "theme": "light",
+   "category": "minimal",
+   "background": "#FFFFFF",
+   "surface": "#F2F2F2",
+   "text": "#111111",
+   "accent": "#E10600",
+   "secondary": "#555555"
+  },
+  "terminal-green": {
+   "label": "Terminal green",
+   "theme": "dark",
+   "category": "developer",
+   "background": "#0C110D",
+   "surface": "#152017",
+   "text": "#DDF5DF",
+   "accent": "#3DDC84",
+   "secondary": "#F0C14B"
+  },
+  "violet-dusk": {
+   "label": "Violet dusk",
+   "theme": "dark",
+   "category": "creative",
+   "background": "#17142A",
+   "surface": "#221E3A",
+   "text": "#F3F0FF",
+   "accent": "#B79CFF",
+   "secondary": "#FF9F7A"
+  },
+  "desert-clay": {
+   "label": "Desert clay",
+   "theme": "light",
+   "category": "warm",
+   "background": "#F8EFE6",
+   "surface": "#FFF8F1",
+   "text": "#2E1F17",
+   "accent": "#A5482A",
+   "secondary": "#2F6B6A"
+  },
+  "arctic-ice": {
+   "label": "Arctic ice",
+   "theme": "light",
+   "category": "clean",
+   "background": "#F0F6FA",
+   "surface": "#FFFFFF",
+   "text": "#0E2433",
+   "accent": "#0F6E9E",
+   "secondary": "#6B4FB0"
+  },
+  "medical-clean": {
+   "label": "Medical clean",
+   "theme": "light",
+   "category": "health",
+   "background": "#F6FBFB",
+   "surface": "#FFFFFF",
+   "text": "#12302F",
+   "accent": "#0B7A75",
+   "secondary": "#C2453D"
+  },
+  "cyber-lime": {
+   "label": "Cyber lime",
+   "theme": "dark",
+   "category": "tech",
+   "background": "#0D0F0A",
+   "surface": "#191C14",
+   "text": "#F4F7EE",
+   "accent": "#C6FF3D",
+   "secondary": "#8A7CFF"
+  }
+ }
+}
