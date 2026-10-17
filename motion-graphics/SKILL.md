@@ -19,6 +19,18 @@ One router over two engines plus shared motion doctrine. Read this file, pick th
 
 Never mix both engines in one composition. Preserve user edits made outside the conversation.
 
+### Path translation (upstream references were written as separate skills)
+- `/skill-name` or "Unclear → /hyperframes" → `references/hyperframes/skill-name/GUIDE.md`
+- `skills/<name>/...` → `references/hyperframes/<name>/...`; `skills/animate-text/...` → `references/hyperframes/hyperframes-animation/...`
+- "Remotion Best Practices" → `references/remotion/GUIDE.md`; `remotion-<x>` skill → `references/remotion/remotion-<x>/REFERENCE.md`
+- Any `SKILL.md` mentioned upstream is named `GUIDE.md` here. Example media (png, fonts, mp3) were not bundled; fetch or generate replacements.
+
+### Inside a Lovable / TanStack Start app
+- Install `remotion` + `@remotion/player` and render `<Player>` from a lazily imported component behind `<ClientOnly>` (Remotion touches `window`). Keep `remotion`, `@remotion/*` versions identical.
+- Verified pattern: `lazy(() => import("@/remotion/Player"))` inside `<ClientOnly><Suspense>` with an aspect-video fallback; pass `acknowledgeRemotionLicense`.
+- Browsers may block `autoPlay` until a user gesture, and frame 0 is often empty (elements still entering). Set `initialFrame` to a readable frame or render a `renderPoster`, so the player never looks blank.
+- Keep compositions in `src/remotion/`, pure functions of `useCurrentFrame()` / props. Rendering MP4 needs Node + Chromium (`npx remotion render`) or Remotion Lambda — not the Worker runtime.
+
 ## 2. Always apply motion doctrine (engine-agnostic)
 
 Before choreographing, read:
@@ -40,10 +52,10 @@ Universal rules: deterministic frame-driven animation only (no `Math.random()` w
 - Media metadata / trimming: `references/remotion/remotion-multimedia/REFERENCE.md`
 - Studio interactivity: `references/remotion/remotion-interactivity/REFERENCE.md`
 - Rendering: `references/remotion/remotion-render/REFERENCE.md`
-- Other folders in `references/remotion/` cover docs, studio, and more — list them when needed.
-- Standalone Remotion skills (full versions, use when the bundled router copy is thinner): `references/remotion-skills/{remotion-captions,remotion-create,remotion-docs,remotion-interactivity,remotion-maps,remotion-markup,remotion-multimedia,remotion-render,remotion-studio}/GUIDE.md`
-- SaaS / Remotion Lambda / embedding videos in a product: `references/remotion-skills/remotion-saas/GUIDE.md`
-- Upgrading Remotion versions: `references/remotion-skills/remotion-upgrade/GUIDE.md`
+- Studio (launch, URLs, CLI flags): `references/remotion/remotion-studio/REFERENCE.md`
+- Looking up Remotion docs/APIs: `references/remotion/remotion-docs/REFERENCE.md`
+- SaaS / Remotion Lambda / embedding videos in a product: `references/remotion/remotion-saas/REFERENCE.md`
+- Upgrading Remotion versions: `references/remotion/remotion-upgrade/REFERENCE.md`
 
 ### Ready-made HyperFrames blocks (3D titles, carousels, camera moves)
 `references/registry-blocks/{canopy-part-title,code-slice-hero,cuboid-carousel,frost-sequence-camera-orbit,glass-shard-title,orbit-card,wireframe-portal-title}/GUIDE.md` — check these before hand-building a similar effect.

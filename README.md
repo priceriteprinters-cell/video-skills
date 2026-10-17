@@ -1,4 +1,17 @@
-# Complete Video Production Skill
+# Video Skills
+
+Two agent skills for making videos:
+
+| Skill | What it's for |
+|---|---|
+| [`complete-video-production`](complete-video-production/) | End-to-end production: narration or script → researched, timed, verified MP4 + asset packs |
+| [`motion-graphics`](motion-graphics/) | Unified Remotion + HyperFrames engine knowledge: animation, transitions, captions, 3D, maps, audio, rendering |
+
+Use them together: `complete-video-production` plans, sources and verifies; `motion-graphics` builds the animation.
+
+---
+
+## Complete Video Production
 
 A [Claude Code / agent skill](https://github.com/anthropics/skills) for **end-to-end motion-graphics video production** — from narration audio or a script to a finished, synchronized, verified MP4 — plus a standalone mode that generates verified AI PNG asset packs.
 
@@ -12,6 +25,12 @@ Install only this skill from the repo:
 
 ```bash
 npx skills add priceriteprinters-cell/video-skills --skill complete-video-production
+```
+
+Install only the motion graphics skill:
+
+```bash
+npx skills add priceriteprinters-cell/video-skills --skill motion-graphics
 ```
 
 Re-run the same command anytime to pull the latest version.
@@ -105,3 +124,37 @@ python3 scripts/test_production_check.py
 ## Version
 
 Current: **v7** (`complete-video-production_v7`).
+
+---
+
+## Motion Graphics
+
+One skill that merges **all 12 Remotion skills** ([remotion-dev/skills](https://github.com/remotion-dev/skills)) and **all HyperFrames skills, doctrine guides and registry blocks** ([heygen-com/hyperframes](https://github.com/heygen-com/hyperframes)) behind a single router.
+
+### How it works
+
+1. **Pick the engine** — Remotion (React, in-app `<Player>`) or HyperFrames (HTML + GSAP, registry blocks). Existing projects keep their engine; the two are never mixed in one composition.
+2. **Apply motion doctrine** — engine-agnostic rules for easing, scene seams, beats and typography (`motion-doctrine`, `cut-the-curve`, `seam-craft`).
+3. **Route by task** — load only the reference needed: timing, transitions, captions, maps, 3D, Lottie, audio, voiceover, SFX, Studio, rendering, Lambda/SaaS, upgrades.
+4. **Use a workflow** when the format fits — faceless explainer, product launch, music video, PR/changelog, slideshow, captions, talking-head overlays, cursor demos.
+5. **Deliver** — live preview first, render only on request, verify frames, legibility and audio sync.
+
+### Structure
+
+```
+motion-graphics/
+├── SKILL.md                 # Router: engine choice, doctrine, task routing, delivery
+└── references/
+    ├── remotion/            # All 12 Remotion skills (create, markup, captions, maps, render, studio, saas, upgrade…)
+    ├── hyperframes/         # 21 HyperFrames skills + workflows, templates and helper scripts
+    ├── doctrine/            # motion-doctrine, cut-the-curve, seam-craft, captions-overlay, oversized-cursor, changelog-video
+    └── registry-blocks/     # 7 ready-made 3D title / carousel / camera-orbit blocks
+```
+
+### Tested
+
+Verified end-to-end: every path in `SKILL.md` resolves, internal links checked (missing templates restored), all bundled `.mjs/.cjs/.py/.sh` scripts pass syntax checks, and a Remotion kinetic-title composition built from the skill plays correctly in a React (TanStack Start) app.
+
+Example media from upstream (images, fonts, music clips) is not bundled; the skill fetches or generates replacements.
+
+Credits: Remotion skills © Remotion; HyperFrames skills © HeyGen. See each upstream repository for licenses.
