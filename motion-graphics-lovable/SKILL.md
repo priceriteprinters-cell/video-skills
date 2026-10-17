@@ -20,7 +20,7 @@ One router over two engines plus shared motion doctrine. Read this file, pick th
 Never mix both engines in one composition. Preserve user edits made outside the conversation.
 
 ### Scripts, templates and full tree
-This upload is the knowledge-only edition (Lovable skill limits: 200 files, 1 MB each). Helper scripts (`.mjs/.cjs/.py/.sh`), HTML templates and JSON data live in the full edition: https://github.com/priceriteprinters-cell/video-skills/tree/main/motion-graphics — fetch a file from `https://raw.githubusercontent.com/priceriteprinters-cell/video-skills/main/motion-graphics/<original path>` into `/tmp` when a guide tells you to run or copy it.
+This upload is the knowledge-only edition (Lovable skill limits; every file kept under 100 KB). Helper scripts (`.mjs/.cjs/.py/.sh`), HTML templates and JSON data live in the full edition: https://github.com/priceriteprinters-cell/video-skills/tree/main/motion-graphics — fetch a file from `https://raw.githubusercontent.com/priceriteprinters-cell/video-skills/main/motion-graphics/<original path>` into `/tmp` when a guide tells you to run or copy it.
 
 ### Path translation (upstream references were written as separate skills)
 - `/skill-name` or "Unclear → /hyperframes" → `references/hyperframes--skill-name.md`
